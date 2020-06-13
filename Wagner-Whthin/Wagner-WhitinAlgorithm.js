@@ -9,45 +9,54 @@ for (i = 0; i < period; i++) {
     readlineSync.question(`${i + 1} period forecast demand :`)
   );
 }
-console.log(demand);
+console.log(
+  "------------------------------------------------------------------------------------------"
+);
+console.log(
+  `총 period : ${period} , Ordering Cost : ${orderingCost}, Holding Cost : ${holdingCost}`
+);
+console.log(`Demand : ${demand}`);
 
-let optiamlK = [0];
-let inventoryQ = [];
-
+let optimalK = [0];
+let totalCost = [];
 for (let week = 0; week < demand.length; week++) {
-  inventoryQ[week] = []; //자바스크립트는 다중배열선언이 안된다.
-
+  totalCost[week] = [];
   for (let period = week + 1; period < demand.length + 1; period++) {
-    let something = 0;
+    totalCost[week][period - 1] = orderingCost;
     for (let i = week; i < period; i++) {
-      something = something + (i - week) * demand[i];
+      totalCost[week][period - 1] += holdingCost * (i - week) * demand[i];
     }
-
-    inventoryQ[week][period - 1] = something;
   }
 }
 
 let arrayForK = [];
 for (let period = 0; period < demand.length; period++) {
   arrayForK[period] = [];
-
   for (let t = 0; t < period + 1; t++) {
-    let K_t_period = orderingCost + holdingCost * inventoryQ[t][period]; //K_tl
-    arrayForK[period].push(optiamlK[t] + K_t_period);
+    let K_t_period = totalCost[t][period];
+    arrayForK[period].push(optimalK[t] + K_t_period);
   }
-  optiamlK.push(Math.min.apply(null, arrayForK[period]));
+  optimalK.push(Math.min.apply(null, arrayForK[period]));
 }
-
-console.log(arrayForK);
-console.log(optiamlK);
+console.log(
+  "------------------------------------------------------------------------------------------"
+);
+console.log(optimalK);
 
 //경로 찾기
+console.log(
+  "------------------------------------------------------------------------------------------"
+);
+let finalCost = 0;
 for (let period = demand.length - 1; period > -1; ) {
-  let order = arrayForK[period].indexOf(optiamlK[period + 1]);
+  let order = arrayForK[period].indexOf(optimalK[period + 1]);
   let lotSize = 0;
   for (let k = order; k < period + 1; k++) {
     lotSize = lotSize + demand[k];
   }
+
+  finalCost += optimalK[period + 1];
+
   console.log(
     `${order + 1} 주에서 ${
       period + 1
@@ -56,3 +65,10 @@ for (let period = demand.length - 1; period > -1; ) {
 
   period = order - 1;
 }
+console.log(
+  "------------------------------------------------------------------------------------------"
+);
+console.log(`Total optimal cost : ${finalCost}`);
+console.log(
+  "------------------------------------------------------------------------------------------"
+);
