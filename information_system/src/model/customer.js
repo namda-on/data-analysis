@@ -27,6 +27,7 @@ module.exports = (Sequelize, sequelize) => {
     },
     custRank_ranking: {
       type: Sequelize.STRING(10),
+      defaultValue: "silver",
       references: {
         model: "custrank",
         key: "ranking",

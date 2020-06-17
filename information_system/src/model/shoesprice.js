@@ -6,10 +6,9 @@ module.exports = (Sequelize, sequelize) => {
     item: {
       type: Sequelize.STRING(20),
       primaryKey: true,
-      autoIncrement: true,
       allowNull: false,
     },
-    price: {
+    ShoesPricecol: {
       type: Sequelize.INTEGER(11),
       allowNull: false,
     },

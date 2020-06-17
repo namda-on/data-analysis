@@ -9,7 +9,7 @@ module.exports = (Sequelize, sequelize) => {
       autoIncrement: true,
       allowNull: false,
     },
-    coupon: {
+    coupDiscount: {
       type: Sequelize.INTEGER(11),
       allowNull: false,
     },

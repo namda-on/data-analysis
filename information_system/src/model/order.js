@@ -9,7 +9,7 @@ module.exports = (Sequelize, sequelize) => {
       autoIncrement: true,
       allowNull: false,
     },
-    item: {
+    shoes_ShoesPrice_item: {
       type: Sequelize.STRING(50),
       references: {
         model: "shoes",
@@ -17,8 +17,8 @@ module.exports = (Sequelize, sequelize) => {
       },
       allowNull: false,
     },
-    size: {
-      type: Sequelize.INT(5),
+    shoes_size: {
+      type: Sequelize.INTEGER(5),
       references: {
         model: "shoes",
         key: "size",
@@ -35,7 +35,7 @@ module.exports = (Sequelize, sequelize) => {
       allowNull: false,
     },
     coupon: {
-      type: Sequelize.INT(1),
+      type: Sequelize.INTEGER(1),
       defaultValue: 0,
       allowNull: false,
     },

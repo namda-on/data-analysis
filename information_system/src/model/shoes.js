@@ -4,9 +4,8 @@ const sequelize = require("sequelize");
 module.exports = (Sequelize, sequelize) => {
   const shoes = sequelize.define("shoes", {
     item: {
-      type: Sequelize.INTEGER(11),
+      type: Sequelize.STRING(15),
       primaryKey: true,
-      autoIncrement: true,
       allowNull: false,
     },
     size: {

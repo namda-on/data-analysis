@@ -9,13 +9,17 @@ const sequelize = require("sequelize");
 
 module.exports = (Sequelize, sequelize) => {
   const customer = customerModel(Sequelize, sequelize);
-
+  const shoes = shoesModel(Sequelize, sequelize);
+  const order = orderModel(Sequelize, sequelize);
+  const coupon = couponModel(Sequelize, sequelize);
+  const custrank = custrankModel(Sequelize, sequelize);
+  const shoesprice = shoespriceModel(Sequelize, sequelize);
   return {
     customer,
-    shoesModel,
-    orderModel,
-    couponModel,
-    custrankModel,
-    shoespriceModel,
+    shoes,
+    order,
+    coupon,
+    custrank,
+    shoesprice,
   };
 };
