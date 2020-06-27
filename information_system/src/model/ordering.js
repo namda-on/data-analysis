@@ -2,14 +2,14 @@ const { Sequelize } = require("sequelize");
 const sequelize = require("sequelize");
 
 module.exports = (Sequelize, sequelize) => {
-  const order = sequelize.define("order", {
-    id: {
+  const ordering = sequelize.define("ordering", {
+    order_id: {
       type: Sequelize.INTEGER(11),
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    shoes_ShoesPrice_item: {
+    shoes_item: {
       type: Sequelize.STRING(50),
       references: {
         model: "shoes",
@@ -34,12 +34,20 @@ module.exports = (Sequelize, sequelize) => {
       type: Sequelize.INTEGER(1),
       allowNull: false,
     },
-    coupon: {
+    coupon_yes: {
       type: Sequelize.INTEGER(1),
       defaultValue: 0,
       allowNull: false,
     },
+    customer_id: {
+      type: Sequelize.STRING(50),
+      references: {
+        model: "customer",
+        key: "id",
+      },
+      allowNull: false,
+    },
   });
-  order.sync();
-  return order;
+  ordering.sync();
+  return ordering;
 };

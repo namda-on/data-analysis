@@ -17,6 +17,10 @@ module.exports = (Sequelize, sequelize) => {
       type: Sequelize.INTEGER(10),
       allowNull: false,
     },
+    price: {
+      type: Sequelize.INTEGER(11),
+      allowNull: false,
+    },
   });
   shoes.sync();
   return shoes;

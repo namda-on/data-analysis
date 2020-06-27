@@ -3,7 +3,7 @@ const sequelize = require("sequelize");
 
 module.exports = (Sequelize, sequelize) => {
   const coupon = sequelize.define("coupon", {
-    id: {
+    coupon_id: {
       type: Sequelize.INTEGER(11),
       primaryKey: true,
       autoIncrement: true,

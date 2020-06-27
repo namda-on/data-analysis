@@ -1,15 +1,26 @@
-const express = require("express");
 const cors = require("cors");
-const app = express();
-const CustomerRouter = require("./router/customer");
+const express = require("express");
+const cookieParser = require("cookie-parser");
+
 const ItemRouter = require("./router/item");
 const OrderRouter = require("./router/order");
-app.use(cors());
-app.use(express.json());
+const CustomerRouter = require("./router/customer");
+const CouponRouter = require("./router/coupon");
+const app = express();
 
-app.use("/customer", CustomerRouter);
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3001",
+  })
+);
+app.use(express.json());
+app.use(cookieParser());
+
 app.use("/item", ItemRouter);
 app.use("/order", OrderRouter);
+app.use("/customer", CustomerRouter);
+app.use("/coupon", CouponRouter);
 app.use("/", (req, res, next) => {
   res.send("hello");
 });

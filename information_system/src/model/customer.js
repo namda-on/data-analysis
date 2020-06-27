@@ -25,7 +25,7 @@ module.exports = (Sequelize, sequelize) => {
       type: Sequelize.TEXT,
       allowNull: false,
     },
-    custRank_ranking: {
+    custrank: {
       type: Sequelize.STRING(10),
       defaultValue: "silver",
       references: {
@@ -33,6 +33,10 @@ module.exports = (Sequelize, sequelize) => {
         key: "ranking",
       },
 
+      allowNull: false,
+    },
+    password: {
+      type: Sequelize.STRING(50),
       allowNull: false,
     },
   });

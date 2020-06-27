@@ -8,6 +8,7 @@ const sequelize = new Sequelize("mydb", "root", "skaekdhsejxmfor", {
     freezeTableName: true,
     timestamps: false,
   },
+  timezone: "+09:00",
 });
 
 sequelize
