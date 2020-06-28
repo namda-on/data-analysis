@@ -47,6 +47,10 @@ module.exports = (Sequelize, sequelize) => {
       },
       allowNull: false,
     },
+    order_price: {
+      type: Sequelize.INTEGER(20),
+      allowNull: false,
+    },
   });
   ordering.sync();
   return ordering;

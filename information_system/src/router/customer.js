@@ -3,6 +3,7 @@ const db = require("../db");
 const { models } = require("../db");
 const model = require("../model");
 const CustomerRouter = express.Router();
+const couponCode = require("coupon-code");
 
 //회원리스트
 CustomerRouter.get("/list", async (req, res, next) => {
@@ -35,8 +36,9 @@ CustomerRouter.post("/login", async (req, res, next) => {
       res.status(500).json({ error: "없어임마" });
       return;
     }
+    console.log(user);
 
-    res.cookie("login", "true");
+    res.cookie("login", JSON.stringify(user.dataValues));
     res.status(200).send("");
   } catch (error) {
     res.status(500).json({ error: error.toString() });
@@ -53,16 +55,13 @@ CustomerRouter.get("/logout", (req, res, next) => {
 CustomerRouter.get("/:id", async (req, res, next) => {
   try {
     const customerid = req.params.id;
-    const result = await models.customer
-      .findAll({
-        where: {
-          id: customerid,
-        },
-      })
-      .map(({ name, point, account, address }) => {
-        return { name, point, account, address };
-      });
-    res.send(result);
+    const result = await models.customer.findone({
+      where: {
+        id: customerid,
+      },
+    });
+    console.log(result.dataValues);
+    res.json(result.dataValues);
   } catch (error) {
     res.status(500).json({ error: error.toString() });
   }
@@ -70,22 +69,23 @@ CustomerRouter.get("/:id", async (req, res, next) => {
 
 //회원가입
 CustomerRouter.post("/add", async (req, res, next) => {
-  try {
-    const { id, pw, name, account, address } = req.body;
-    console.log(req.body);
-    await models.customer
-      .create({
-        id,
-        password: pw,
-        name,
-        account,
-        address,
-      })
-      .catch((e) => console.log(e));
-    res.status(204).send("완료");
-  } catch {
-    res.status(500).json({ error: error.toString() });
-  }
+  const { id, pw, name, account, address } = req.body;
+  console.log(req.body);
+  await models.customer
+    .create({
+      id,
+      password: pw,
+      name,
+      account,
+      address,
+    })
+    .catch((e) => res.status(500).json(e));
+  await models.coupon.create({
+    coupon_id: couponCode.generate(),
+    coupDiscount: 10,
+    customer_id: id,
+  });
+  res.status(204).send("완료");
 });
 
 //회원정보갱신 포인트 + 회원등급
