@@ -18,4 +18,21 @@ CouponRouter.post("/new", async (req, res, next) => {
   res.status(204).send("완료");
 });
 
+//쿠폰조회
+CouponRouter.get("/:id", async (req, res, next) => {
+  try {
+    const customerid = req.params.id;
+    const result = await models.coupon.findOne({
+      where: {
+        customer_id: customerid,
+      },
+    });
+    console.log(result.dataValues);
+
+    res.json(result.dataValues);
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+  }
+});
+
 module.exports = CouponRouter;

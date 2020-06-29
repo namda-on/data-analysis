@@ -82,6 +82,7 @@ OrderRouter.post("/add", async (req, res, next) => {
     .catch((e) => {
       console.log(e);
     });
+
   console.log(createOrderResult.dataValues);
 
   await models.shoes.update(
@@ -93,14 +94,38 @@ OrderRouter.post("/add", async (req, res, next) => {
     }
   );
 
+  const updatedPoint = cust.dataValues.point + order_price * 0.0005;
+  let updatedRank = "";
+  if (updatedPoint < 300) {
+    updatedRank = "silver";
+  } else if (updatedPoint < 500) {
+    updatedRank = "gold";
+  } else {
+    updatedRank = "vip";
+  }
+
   await models.customer.update(
     {
-      point: cust.dataValues.point + order_price * 0.0005,
+      point: updatedPoint,
+      custrank: updatedRank,
     },
     {
       where: { id: customer_id },
     }
   );
+
+  if (coupon_yes === 1) {
+    await models.coupon.destroy({ where: { customer_id: customer_id } });
+  }
+
+  const newUser = await models.customer.findOne({
+    where: {
+      id: customer_id,
+    },
+  });
+
+  console.log(req.cookies.login);
+  res.cookie("login", JSON.stringify(newUser));
 
   res.json({ id: createOrderResult.dataValues.order_id });
 });

@@ -55,7 +55,7 @@ CustomerRouter.get("/logout", (req, res, next) => {
 CustomerRouter.get("/:id", async (req, res, next) => {
   try {
     const customerid = req.params.id;
-    const result = await models.customer.findone({
+    const result = await models.customer.findOne({
       where: {
         id: customerid,
       },
