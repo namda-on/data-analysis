@@ -19,7 +19,7 @@ var x = "global";
 
 function fee() {
   console.log(x); // 2. 함수 내의 스코프에 x가 초기화되어있으므로 undefined 를 출력
-  var x = "local"; // 1. 함수가 호출되면서 순차적으로 실행되기 이전에 x를 초기화시키고 시작
+  var x = "local"; // 1. 함수가 호출되면서 순차적으로 실행되기 이전에 x를 초기화시키고 시작(호이스팅)
 }
 
 fee();
