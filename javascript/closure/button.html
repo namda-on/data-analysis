@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button class="up">+</button>
+    <button class="down">-</button>
+    <div id="count"></div>
+  </body>
+  <script>
+    const upButton = document.querySelector(".up");
+    const downButton = document.querySelector(".down");
+    const count = document.querySelector("#count");
+
+    const plus = (() => {
+      let count = 0;
+      return () => {
+        count++;
+        return count;
+      };
+    })();
+
+    upButton.onclick = () => {
+      count.innerHTML = plus();
+    };
+  </script>
+</html>
