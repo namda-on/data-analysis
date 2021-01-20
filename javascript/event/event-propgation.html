@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #fruits {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+      }
+
+      #fruits li {
+        width: 100px;
+        cursor: pointer;
+      }
+
+      #fruits .active {
+        color: red;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul id="fruits">
+        <li id="apple" class="active">Apple</li>
+        <li id="banana">Banana</li>
+        <li id="orange">Orange</li>
+      </ul>
+    </nav>
+    <div>선택된 내비게이션 아이템 : <em class="msg">apple</em></div>
+    <script>
+      const $fruits = document.getElementById("fruits");
+      const $msg = document.querySelector(".msg");
+
+      const activate = ({ target }) => {
+        [...$fruits.children].forEach(($fruit) => {
+          $fruit.classList.toggle("active", $fruit === target);
+          $msg.textContent = target.id;
+        });
+      };
+
+      $fruits.onclick = activate;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <ul id="fruits">
+      <li id="apple">Apple</li>
+      <li id="banana">Banana</li>
+      <li id="orange">Orange</li>
+    </ul>
+  </body>
+  <script>
+    const fruits = document.getElementById("fruits");
+    const banana = document.getElementById("banana");
+    fruits.addEventListener(
+      "click",
+      (e) => {
+        console.log(`이벤트 단계 : ${e.eventPhase}`);
+        console.log(`이벤트 타겟 : ${e.target}`);
+        console.log(`current target : ${e.currentTarget}`);
+      },
+      true
+    );
+    banana.addEventListener("click", (e) => {
+      console.log(`이벤트 단계 : ${e.eventPhase}`);
+      console.log(`이벤트 타겟 : ${e.target}`);
+      console.log(`current target : ${e.currentTarget}`);
+    });
+    fruits.addEventListener("click", (e) => {
+      console.log(`이벤트 단계 : ${e.eventPhase}`);
+      console.log(`이벤트 타겟 : ${e.target}`);
+      console.log(`current target : ${e.currentTarget}`);
+    });
+  </script>
+</html>
